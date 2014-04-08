@@ -1,6 +1,6 @@
 {
   "name": "chainof",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "chain functions like `Connect`. for Chain Of Responsibility.",
   "main": "lib/chainof.js",
   "directories": {

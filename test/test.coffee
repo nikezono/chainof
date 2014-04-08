@@ -71,4 +71,32 @@ describe "chainof", ->
       return "Never"
     chainer.use (args,next)-> return "Run6"
     chainer.use (args,next)-> return "Run7"
-    assert.equal chainer.run(),"Run7"
+    assert.equal chainer.run(),"Run6"
+
+  it "Object" ,->
+    chainer.use (args,next) ->
+      args.test = {hoge:"piyo"}
+      next()
+    chainer.use (args,next) ->
+      args.hoge = -> console.log("piyo")
+      next()
+    chainer.use (args,next)->
+      args.piyo = 3
+      next()
+    chainer.use (args,next) ->
+      args.piyo = 5
+      return 10
+    value = chainer.run()
+    assert.equal value,10
+    assert.equal chainer.variables.test.hoge,"piyo"
+    assert.equal typeof chainer.variables.hoge,"function"
+    assert.equal chainer.variables.piyo, 5
+
+
+  it "next3", ->
+    chainer.use (args,next)->
+      next()
+      return "hoge"
+    chainer.use (args,next)->
+      return "piyo"
+    assert.equal chainer.run(),"hoge"
