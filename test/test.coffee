@@ -2,48 +2,65 @@
 path = require 'path'
 assert  = require 'assert'
 
-chainof = require './lib/chainof'
+Chainof = require path.resolve('lib','chainof')
 
 describe "chainof", ->
+  chainer = {}
 
-  # set function
-  chainof.use ->
-    return "Run"
+  beforeEach ->
+    chainer = new Chainof
 
   it "store出来る",->
-    assert.equal chainof.length, 1
+    chainer.use -> return "Run1"
+    assert.equal chainer.length(), 1
 
   it "function以外はstore出来ない",->
-    assert.throws chainof.use(2)
+    assert.throws ->
+      chainer.use(2)
+    ,Error
 
   it "run出来る/returnが帰る", ->
-    assert.equal chainof.run(), "Run"
-
-  chainof.clear()
+    chainer.use -> return "Run2"
+    assert.equal chainer.run(), "Run2"
 
   it "clear出来る",->
-    assert.equal chainof.length,0
-
-  # set arguments
-  chainof.use (args,next) ->
-    args.ping = "pong"
-    next()
-
-  chainof.use ->
-    return "Run"
+    chainer.use -> return "Run3"
+    chainer.clear()
+    assert.equal chainer.length(),0
 
   it "複数Store出来る",->
-    assert.equal chainof.length,2
+
+    # set arguments
+    chainer.use (args,next) ->
+      args.ping = "pong"
+      next()
+
+    chainer.use -> return "Run4"
+
+    assert.equal chainer.length(),2
 
   it "argsを変更できる",->
-    args = {}
-    chainof.run(args)
-    assert.equal chainof.ping, "pong"
 
-  chainof.use ->
-    return "never"
+    # set arguments
+    chainer.use (args,next) ->
+      args.ping = "pong"
+      next()
+
+    args = {}
+    chainer.run(args)
+    assert.equal chainer.variables.ping, "pong"
 
   it "returnされた時点で終わる", ->
-    value = chainof.run()
-    assert.equal value,"Run"
 
+    chainer.use -> return "Run5"
+    chainer.use -> return "Never"
+
+    value = chainer.run()
+    assert.equal value,"Run5"
+
+  it "next()すると以降が飛ばされる", ->
+    chainer.use (args,next)->
+      next()
+      return "Never"
+    value = chainer.run()
+    assert.equal value,null
