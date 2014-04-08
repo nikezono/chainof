@@ -1,0 +1,11 @@
+language: node_js
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq libicu-dev
+  - npm install -g coffee-script mocha
+before_script:
+  - coffee -o ./lib -c -b ./src
+node_js:
+  - "0.10"
+  - "0.8"
+  - "0.6"

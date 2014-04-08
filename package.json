@@ -1,0 +1,30 @@
+{
+  "name": "chainof",
+  "version": "0.0.0",
+  "description": "chain functions like `Connect`. for Chain Of Responsibility.",
+  "main": "lib/chainof.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "cake test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nikezono/node-chainof.js"
+  },
+  "keywords": [
+    "Chain",
+    "Of",
+    "Responsibility",
+    "chain",
+    "function",
+    "connect",
+    "middleware"
+  ],
+  "author": "nikezono",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nikezono/node-chainof.js/issues"
+  }
+}
