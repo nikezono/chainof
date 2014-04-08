@@ -58,9 +58,17 @@ describe "chainof", ->
     value = chainer.run()
     assert.equal value,"Run5"
 
-  it "next()すると以降が飛ばされる", ->
+  it "next()", ->
     chainer.use (args,next)->
-      next()
+      return next()
       return "Never"
     value = chainer.run()
     assert.equal value,null
+
+  it "next()2", ->
+    chainer.use (args,next)->
+      return next()
+      return "Never"
+    chainer.use (args,next)-> return "Run6"
+    chainer.use (args,next)-> return "Run7"
+    assert.equal chainer.run(),"Run7"

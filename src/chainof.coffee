@@ -27,10 +27,28 @@ class Chainof
 
   # @todo function mergeしてstop()メソッドがあるメソッドとマージする
   run: (args)->
-    for func in functions
-      response = func(args,next)
-      @extend(args)
-      return response if response
+    that = this
+    stack = 0
+    nullobj = {
+      res:null
+      args:args
+    }
+    next = ->
+      stack++
+      if functions[stack-1] is undefined || null
+        return nullobj
+      response = functions[stack-1](args,next)
+      if response && response isnt nullobj
+        return {
+          res:response
+          args:args
+        }
+      return nullobj
+
+    val = next()
+    console.log val
+    @extend(val.args)
+    return val.res
 
   variables: variables
 
