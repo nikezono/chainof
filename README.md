@@ -3,7 +3,7 @@ chainof [![Build Status](https://travis-ci.org/nikezono/chainof.png)](https://tr
 
 [![NPM](https://nodei.co/npm/chainof.png)](https://nodei.co/npm/chainof/)
 
-function chain,like connect
+function chain,like [connect](http://www.senchalabs.org/connect/)
 
 ##install
 
