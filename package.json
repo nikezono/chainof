@@ -1,6 +1,6 @@
 {
   "name": "chainof",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "chain functions like `Connect`. for Chain Of Responsibility.",
     "main": "lib/chainof.js",
     "directories": {
@@ -11,7 +11,7 @@
     },
     "repository": {
       "type": "git",
-      "url": "git://github.com/nikezono/node-chainof.js"
+      "url": "git://github.com/nikezono/chainof"
     },
     "keywords": [
       "Chain",
@@ -28,6 +28,6 @@
     "author": "nikezono",
     "license": "MIT",
     "bugs": {
-      "url": "https://github.com/nikezono/node-chainof.js/issues"
+      "url": "https://github.com/nikezono/chainof/issues"
     }
 }
